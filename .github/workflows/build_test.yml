@@ -1,0 +1,25 @@
+
+name: build docker
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: build project
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: list
+        run: ls -la
+      - name: run build
+        uses: addnab/docker-run-action@v3
+        with:
+          image: openvino/ubuntu20_runtime:2022.3.0
+          options: -v ${{ github.workspace }}:/app -u root
+          run: |
+              cd /app
+              bash script.sh
+      - name: list2
+        run: ls -la
+      - name: cat
+        run: cat testfile
