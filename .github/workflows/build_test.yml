@@ -11,8 +11,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: list user
-        run: whoami
+      - name: list
+        run: ls -la
       - name: run build
         uses: addnab/docker-run-action@v3
         with:
@@ -21,8 +21,6 @@ jobs:
           run: |
               cd /app
               bash script.sh
-      - name: run script
-        run: bash script.sh
       - name: list3
         run: ls -la wheels/
       - name: cat
