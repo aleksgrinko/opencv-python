@@ -21,5 +21,21 @@ jobs:
               bash script.sh
       - name: list2
         run: ls -la
+      - name: list3
+        run: ls -la wheels/
       - name: cat
         run: cat testfile
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: build
+          name: whl-files
+  deploy:
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get build project
+        uses: actions/download-artifact@v3
+        with:
+          name: whl-files
+    
