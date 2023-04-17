@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p /app/wheels
 apt update
 apt upgrade -y
 apt install -y \
