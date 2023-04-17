@@ -28,7 +28,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          path: build
+          path: wheels
           name: whl-files
   deploy:
     needs: build
