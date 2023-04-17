@@ -13,14 +13,14 @@ jobs:
           submodules: recursive
       - name: list user
         run: whoami
-#      - name: run build
-#        uses: addnab/docker-run-action@v3
-#        with:
-#          image: openvino/ubuntu20_runtime:2022.3.0
-#          options: -v ${{ github.workspace }}:/app -u root
-#          run: |
-#              cd /app
-#              bash script.sh
+      - name: run build
+        uses: addnab/docker-run-action@v3
+        with:
+          image: openvino/ubuntu20_runtime:2022.3.0
+          options: -v ${{ github.workspace }}:/app -u root
+          run: |
+              cd /app
+              bash script.sh
       - name: run script
         run: bash script.sh
       - name: list3
