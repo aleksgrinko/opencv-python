@@ -48,4 +48,3 @@ export CMAKE_ARGS="-D BUILD_opencv_world=OFF -DCPU_BASELINE=SSE4_2 -D CUDA_FAST_
 export ENABLE_CONTRIB=1
 export ENABLE_HEADLESS=1
 pip wheel . --verbose --wheel-dir=/app/wheels 
-ls -la /app/wheels > /app/testfile
