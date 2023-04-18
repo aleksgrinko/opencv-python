@@ -1,5 +1,5 @@
 
-name: build docker
+name: build and deploy
 on: workflow_dispatch
 
 jobs:
@@ -37,6 +37,7 @@ jobs:
           path: wheels
           name: whl-files
   deploy:
+    name: deploy package
     needs: build
     runs-on: ubuntu-20.04
     steps:
@@ -44,4 +45,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: whl-files
+          path: wheels/
+      - name: Upload to Gitlab
+        run: |
+          python3 -m pip install twine
+          TWINE_PASSWORD=${{ secrets.GITLAB_PASSWORD }} TWINE_USERNAME=${{ secrets.GITLAB_USERNAME }} python3 -m twine upload --repository-url ${{ secrets.GITLAB_REPOSITORY }} --skip-existing wheels/opencv_*
     
