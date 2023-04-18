@@ -9,15 +9,15 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-        with:
-          submodules: true
-          fetch-depth: 0
+#        with:
+#          submodules: true
+#          fetch-depth: 0
       - name: list
         run: ls -la
-      - name: sync submodule
-        run: git submodule sync
-      - name: update submodule
-        run: git submodule update --init --recursive  
+#      - name: sync submodule
+#        run: git submodule sync
+#      - name: update submodule
+#        run: git submodule update --init --recursive  
       - name: run build
         uses: addnab/docker-run-action@v3
         with:
