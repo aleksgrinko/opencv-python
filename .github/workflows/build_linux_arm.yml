@@ -1,4 +1,4 @@
-name: build and deploy
+name: build and deploy arm
 on: workflow_dispatch
 
 jobs:
