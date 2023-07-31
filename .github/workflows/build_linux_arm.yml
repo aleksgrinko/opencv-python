@@ -1,0 +1,39 @@
+name: build and deploy
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: build linux_arm
+    runs-on: opencv-cn-lin-arm64
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3  
+      - name: run build
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ubuntu:22.10
+          options: -v ${{ github.workspace }}:/app -u root
+          run: |
+              cd /app
+              export PLAT=aarch64
+              bash script.sh
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: wheels
+          name: whl-files
+  deploy:
+    name: deploy package
+    needs: build
+    runs-on: ubuntu-22.10
+    steps:
+      - name: Get build project
+        uses: actions/download-artifact@v3
+        with:
+          name: whl-files
+          path: wheels/
+      - name: Upload to Gitlab
+        run: |
+          python3 -m pip install twine
+          TWINE_PASSWORD=${{ secrets.GITLAB_PASSWORD }} TWINE_USERNAME=${{ secrets.GITLAB_USERNAME }} python3 -m twine upload --repository-url ${{ secrets.GITLAB_REPOSITORY }} --skip-existing wheels/opencv_*
+    
